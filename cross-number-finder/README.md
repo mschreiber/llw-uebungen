@@ -36,7 +36,6 @@ Geforderte Ausgabe:
 Quersummen von Datei C:\daten\datei1.txt:
 Zeile 2: 109
 Zeile 3: 157
-Zeile
 </code>
 
 </p>
