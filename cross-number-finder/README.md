@@ -1,4 +1,4 @@
-<h1>Number-Finder</h1>
+<h1>Cross-Number-Finder</h1>
 
 <h2>Aufgabe 1</h2>
 <p>
