@@ -1,33 +1,32 @@
 ﻿
-const string NUMER_TO_MATCH = "777";
-
+const int LIMIT = 100;
 
 var fileName = getFileName();
 var linesIterator = File.ReadLines(fileName);
-var count = 0;
-var lineNumber = 0;
+var lineCounter = 0;
+
 foreach (var line in linesIterator)
 {
-  lineNumber++;
-  count += getCount(line);
-}
-Console.WriteLine($"In der Datei \"{fileName}\" kommt die Zahl {count} mal vor!");
-
-
-// Searches in one line fo NUMBER_TO_MATCH and return the count
-int getCount(string line)
-{
-  int count = 0;
-  string[] chunks = line.Split(" ");
-  foreach (string chunk in chunks)
+  lineCounter++;
+  var crossNumber = calculateCrossNumber(line);
+  if (crossNumber > LIMIT)
   {
-    if (NUMER_TO_MATCH == chunk)
-    {
-      count++;
-    }
+    Console.WriteLine($"Zeile {lineCounter}: {crossNumber}");
   }
-  return count;
 }
+
+
+// Calculates the cross number of one line
+int calculateCrossNumber(String line)
+{
+  var crossNumber = 0;
+  foreach (var number in line)
+  {
+    crossNumber += short.Parse(number.ToString());
+  }
+  return crossNumber;
+}
+
 
 
 // Get the file name either from the command line or 
