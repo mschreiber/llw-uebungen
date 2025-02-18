@@ -62,7 +62,7 @@ Zeile 2: 11
 Zeile 3: 6
 Zeile 4: 13
 
-Zeile 2 ist die Zeile, die am schnellsten die 50 erreicht hat
+Zeile 3 ist die Zeile, die am schnellsten die 50 erreicht hat
 </code>
 </p>
 </p>
