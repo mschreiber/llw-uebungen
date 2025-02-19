@@ -15,6 +15,7 @@ import java.util.Scanner;
 // - Handle ResultSets that might not be as expected 
 // - Handle cases where the limit is never reached in a line
 // - More detailed exception handling 
+// - Handle db location, e.g. per command line switch
 
 public class CrossNumberFinder3 {
 
@@ -195,7 +196,8 @@ public class CrossNumberFinder3 {
 	}
 
 	public static Connection getDbConnection() throws SQLException {
-		String url = "jdbc:sqlite:C:\\git\\llw-uebungen\\cross-number-finder\\loesung-java\\cross-number-finder-3\\src\\main\\resources\\crossNumber.sqlite";
+		String url = "jdbc:sqlite:crossNumber.db";
+		System.out.println(">>>>" + url);
 		return DriverManager.getConnection(url);
 	}
 
