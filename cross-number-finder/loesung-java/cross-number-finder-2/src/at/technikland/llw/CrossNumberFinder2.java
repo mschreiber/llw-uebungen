@@ -6,37 +6,48 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-public class CrossNumberFinder1 {
+public class CrossNumberFinder2 {
 
-	static final int LIMIT = 100;
+	static final int LIMIT = 50;
 
 	public static void main(String[] args) {
 		int lineNumber = 0;
+		int smallestLimitReachedAtLineNumber = 0;
+		int smallestLimitReachedAt = Integer.MAX_VALUE;
 		String fileName = getFileName(args);
 		try (RandomAccessFile file = new RandomAccessFile(fileName, "r")) {
 			String line;
 			while ((line = file.readLine()) != null) {
 				lineNumber++;
-				int crossNumber = calculateCrossNumber(line);
-				if (crossNumber > LIMIT) {
-					System.out.println("Zeile " + lineNumber + ": " + crossNumber);
+				int limitReachedAt = calculateLimitReachedAt(line);
+				System.out.println("Zeile " + lineNumber + ": " + limitReachedAt);
+				if (limitReachedAt < smallestLimitReachedAt) {
+					smallestLimitReachedAt = limitReachedAt;
+					smallestLimitReachedAtLineNumber = lineNumber;
 				}
 			}
+			System.out.println("Zeile " + smallestLimitReachedAtLineNumber + " ist die Zeile, die am schnellsten die "
+					+ LIMIT + " erreicht hat");
 			file.close();
 		} catch (IOException e) {
 			System.out.println("Failed to read file " + fileName);
 		}
 	}
 
-	// Calculates the cross number based on one single line by splitting into each
-	// character and summing up the numbers
-	static int calculateCrossNumber(String line) {
+	// Returns at which position the cross number exceeds the limit within line or
+	// -1 if the limit is not reached
+	static int calculateLimitReachedAt(String line) {
 		int crossNumber = 0;
+		int count = 0;
 		String[] numbers = line.split("");
 		for (String number : numbers) {
+			count++;
 			crossNumber += Integer.valueOf(number);
+			if (crossNumber >= 50) {
+				return count;
+			}
 		}
-		return crossNumber;
+		return -1;
 	}
 
 	// gets the file name either from the arguments or from the user input
@@ -55,4 +66,5 @@ public class CrossNumberFinder1 {
 		}
 		return fileName;
 	}
+
 }
