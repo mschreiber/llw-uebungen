@@ -19,7 +19,7 @@ Beispiel Textdatei:
 In diesem Beispiel sind die Quersummen: 
 <pre>
 Zeile 1: 
-1+1+3+4+3+4+7+7+7+7+7+9+3+1+3+2+4+3+3+2+4+4=98
+1+1+3+4+3+4+7+7+7+7+7+9+3+1+3+2+4+3+3+2+4+4=89
 Zeile 2: 109
 Zeile 3: 157
 Zeile 4: 86
