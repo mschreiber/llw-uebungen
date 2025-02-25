@@ -9,9 +9,14 @@ var lineNumber = 0;
 foreach (var line in linesIterator)
 {
   lineNumber++;
-  count += getCount(line);
+  var countInLine = getCount(line);
+  if (countInLine > 0)
+  {
+    Console.WriteLine($"Zeile {lineNumber}: {countInLine}x");
+  }
+  count += countInLine;
 }
-Console.WriteLine($"In der Datei \"{fileName}\" kommt die Zahl {count} mal vor!");
+Console.WriteLine($"Summe: {count}");
 
 
 // Searches in one line fo NUMBER_TO_MATCH and return the count

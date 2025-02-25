@@ -115,7 +115,7 @@ void parseFile()
   }
 }
 
-void insertLine(SQLiteConnection connection, int fileId, int lineCounter, int crossNumberLimit)
+void insertLine(SQLiteConnection connection, long fileId, int lineCounter, int crossNumberLimit)
 {
   var command = connection.CreateCommand();
   command.CommandText = "insert into lines(file_id, line_number, limit_reached_at) values($fileId,$lineNumber,$reachedAt)";
@@ -125,13 +125,12 @@ void insertLine(SQLiteConnection connection, int fileId, int lineCounter, int cr
   command.ExecuteNonQuery();
 }
 
-int insertFile(SQLiteConnection connection, string fileName)
+long insertFile(SQLiteConnection connection, string fileName)
 {
   var command = connection.CreateCommand();
-  command.CommandText = "insert into files(file_path) values($filepath); select last_insert_rowid();";
+  command.CommandText = "insert into files(file_path) values($filepath)";
   command.Parameters.AddWithValue("$filepath", fileName);
-  // TODO: handle last_insert_rowid in a better way (fail safe)
-  return Convert.ToInt32(command.ExecuteScalar());
+  return connection.LastInsertRowId;
 }
 
 // Calculates the cross number of one line
@@ -175,36 +174,11 @@ void prepareDatabase()
   using (var connection = new SQLiteConnection(CONNECTION_STRING))
   {
     connection.Open();
-    var command = connection.CreateCommand();
-    command.CommandText = "SELECT name FROM sqlite_master WHERE type='table'";
-    var fileTableExists = false;
-    var linesTableExists = false;
-    using (var reader = command.ExecuteReader())
-    {
-      while (reader.Read())
-      {
-        var tableName = reader.GetString(0);
-        if ("lines".Equals(tableName))
-        {
-          linesTableExists = true;
-        }
-        if ("files".Equals(tableName))
-        {
-          fileTableExists = true;
-        }
-      }
-    }
-    if (!linesTableExists)
-    {
-      var createTableCommand = connection.CreateCommand();
-      createTableCommand.CommandText = "CREATE TABLE files(ID INTEGER PRIMARY KEY AUTOINCREMENT, file_path varchar(255))";
-      createTableCommand.ExecuteNonQuery();
-    }
-    if (!fileTableExists)
-    {
-      var createTableCommand = connection.CreateCommand();
-      createTableCommand.CommandText = "CREATE TABLE lines(id integer primary key autoincrement, file_id integer, line_number, limit_reached_at integer)";
-      createTableCommand.ExecuteNonQuery();
-    }
+    var createFilesTableCmd = connection.CreateCommand();
+    createFilesTableCmd.CommandText = "create table if not exists files(id integer primary key autoincrement, file_path varchar(255))";
+    createFilesTableCmd.ExecuteNonQuery();
+    var createLinesTableCmd = connection.CreateCommand();
+    createLinesTableCmd.CommandText = "create table if not exists lines(id integer primary key autoincrement, file_id integer, line_number, limit_reached_at integer, foreign key (file_id) references files(id))";
+    createLinesTableCmd.ExecuteNonQuery();
   }
 }
