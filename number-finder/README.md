@@ -46,7 +46,7 @@ Summe: 4x
 </p>
 <h2>Aufgabe 3:</h2>
 <p>
-Erweitere das Programm, dass die gefundenen Zeilen und deren Wert (z.B. Zeile 3: 2x) irgendwo (z.B. Datenbank) persisiert und der Input Datei zugeordnet werden (C:\daten\datei1.txt). Damit soll es möglich sein, das Programm mit mehreren verschiedenen Input Dateien hintereinander aufzurufen.
+Erweitere das Programm, dass die gefundenen Zeilen und deren Wert (z.B. Zeile 3: 2x) irgendwo (z.B. Datenbank) persistiert und der Input Datei zugeordnet werden (C:\daten\datei1.txt). Damit soll es möglich sein, das Programm mit mehreren verschiedenen Input Dateien hintereinander aufzurufen.
 Im Konsolen Programm soll es dadurch möglich sein, eine Statistik über alle Dateien zu erstellen. Die Statistik soll ausgeben:<br>
 <ul>
 <li>Welche Datei hat am meisten Funde und wie viele</li>

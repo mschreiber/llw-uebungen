@@ -67,7 +67,7 @@ Zeile 3 ist die Zeile, die am schnellsten die 50 erreicht hat
 </p>
 <h2>Aufgabe 3:</h2>
 <p>
-Erweitere das Programm, dass die Anzahl der Zahlen bis zur Quersumme von 50 oder mehr irgendwo (z.B. Datenbank) persisiert und der Input Datei zugeordnet werden (C:\daten\datei1.txt). Damit soll es möglich sein, das Programm mit mehreren verschiedenen Input Dateien hintereinander aufzurufen.
+Erweitere das Programm, dass die Anzahl der Zahlen bis zur Quersumme von 50 oder mehr irgendwo (z.B. Datenbank) persistiert und der Input Datei zugeordnet werden (C:\daten\datei1.txt). Damit soll es möglich sein, das Programm mit mehreren verschiedenen Input Dateien hintereinander aufzurufen.
 Im Konsolen Programm soll es dadurch möglich sein, eine Statistik über alle Dateien zu erstellen. Die Statistik soll ausgeben:<br>
 <ul>
 <li>In welcher Datei wurde die Quersumme am schnellsten erreicht? Ausgabe: Dateiname und wie viel Zeichen/Zahlen</li>
