@@ -36,11 +36,11 @@ Ungerade Zahlen: 18
 <h2>Aufgabe 2</h2>
 <p>
 Erweitere das Programm, dass pro Zeile ausgegeben wird wie groß die Differenz zwischen geraden und ungeraden Zahlen ist.<br>
-Im obigen Beispiel wäre das:
-12 34 344 2 777 931  -> es sind 4 gerade und 2 ungerade Zahlen, somit ist die Differenz 2
-1 49 382 93 022 111  -> es sind 2 gerade und 4 ungerade Zahlen, somit ist die Differenz 2
-13 777 887 777 3 45  -> es sind 0 gerade und 6 ungerade Zahlen, somit ist die Differenz 6
-777 3 928 2281 7777  -> es sind 1 gerade und 4 ungerade Zahlen, somit ist die Differenz 3
+Im obigen Beispiel wäre das:<br>
+12 34 344 2 777 931  -> es sind 4 gerade und 2 ungerade Zahlen, somit ist die Differenz 2<br>
+1 49 382 93 022 111  -> es sind 2 gerade und 4 ungerade Zahlen, somit ist die Differenz 2<br>
+13 777 887 777 3 45  -> es sind 0 gerade und 6 ungerade Zahlen, somit ist die Differenz 6<br>
+777 3 928 2281 7777  -> es sind 1 gerade und 4 ungerade Zahlen, somit ist die Differenz 3<br>
 <p>
 Die Ausgabe wäre somit:
 <code>
