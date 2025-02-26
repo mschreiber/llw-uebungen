@@ -84,7 +84,7 @@ Beispiel "datei3.txt":
 Wird über die oben angeführten Dateien die Statistik aufgerufen kommt folgendes Ergebnis:
 <code>
 Datei mit den meisten Matches: datei2.txt : 6 Matches
-Datei mit den meisten Matches pro Zeile: date2.txt: 5 Matches in Zeile 3
+Datei mit den meisten Matches pro Zeile: date2.txt: 5 Matches in Zeile 4
 Datei "datei3.txt" hat in Zeile 2, drei Matches
 Folgende Datei(en) haben mehr als 4 Matches:
 -datei2.txt
