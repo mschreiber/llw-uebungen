@@ -19,24 +19,26 @@ import java.util.Scanner;
 
 public class CrossNumberFinder3 {
 
+	private static final String CONNECTION_STRING = "jdbc:sqlite:number.db";
 	static final int LIMIT = 50;
 
 	public static void main(String[] args) {
-		int operation = askUserForOperation();
+		String operation = askUserForOperation();
 		switch (operation) {
-		case 1:
+		case "1":
 			processFile();
 			break;
-		case 2:
+		case "2":
 			showStatistic();
 			break;
-		case 3:
+		case "3":
 			System.out.println("Ende");
 			break;
 		}
 	}
 
-	static void showStatistic() {
+	// Calls all statistic methods
+	private static void showStatistic() {
 		try (Connection connection = getDbConnection()) {
 			showFileWithSmallestLimit(connection);
 			showAvarges(connection);
@@ -66,7 +68,7 @@ public class CrossNumberFinder3 {
 	// Finds the filename with the smallest amount of numbers needed to reach the limit
 	// Prints out the filename and the amount
 	private static void showFileWithSmallestLimit(Connection connection) throws SQLException {
-		String sql = "select filepath, min(limit_reached_at) as min_limit_reached from files join lines on files.id = lines.file_id group by files.id order by min_limit_reached limit 1";
+		String sql = "select file_path, min(limit_reached_at) as min_limit_reached from files join lines on files.id = lines.file_id group by files.id order by min_limit_reached limit 1";
 		ResultSet result = connection.createStatement().executeQuery(sql);
 		System.out.println("Schnellstes Erreichen des Limits:");
 		if (result.next()) {
@@ -93,8 +95,9 @@ public class CrossNumberFinder3 {
 		result.close();
 	}
 
-	private static int askUserForOperation() {
-		System.out.println("Quersummen Berechnungstool");
+	// Asks the user what he wants do do, kind of a menu
+	private static String askUserForOperation() {
+		System.out.println("Number-Finder-Tool");
 		System.out.println();
 		System.out.println("Funktionen:");
 		System.out.println("1...Datei einlesen/parsen");
@@ -102,20 +105,16 @@ public class CrossNumberFinder3 {
 		System.out.println("3...Quit");
 		System.out.println();
 		System.out.println("Welche Funktion soll ausgeführt werden?");
-		int choise = 0;
-		try {
-			choise = Character.getNumericValue(System.in.read());
-			while (choise < 1 || choise > 3) {
-				System.out.println("Bitte wählen sie 1 oder 2");
-				choise = Character.getNumericValue(System.in.read());
-			}
-		} catch (IOException e) {
-			System.out.println("Fehler beim Lesen von der Konsole");
-			e.printStackTrace();
+		Scanner inScanner = new Scanner(System.in);
+		String choise = inScanner.nextLine();
+		while (!("1".equals(choise) || "2".equals(choise) || "3".equals(choise))) {
+			System.out.println("Bitte wählen sie 1, 2 oder 3");
+			choise = inScanner.nextLine();
 		}
 		return choise;
 	}
 
+	// Proceeds a file, prints out the findings and saves the values to the database
 	private static void processFile() {
 		int lineNumber = 0;
 		int smallestLimitReachedAtLineNumber = 0;
@@ -144,6 +143,7 @@ public class CrossNumberFinder3 {
 		}
 	}
 
+	// Creates the entry in the db for the specified line values
 	private static void insertLine(Connection connection, int fileId, int lineNumber, int limitReachedAt)
 			throws SQLException {
 		PreparedStatement statement = connection
@@ -154,11 +154,11 @@ public class CrossNumberFinder3 {
 		statement.execute();
 	}
 
-	static int insertFile(Connection connection, String fileName) throws SQLException {
+	// Creates the entry in the files table for the specified file
+	private static int insertFile(Connection connection, String fileName) throws SQLException {
 		PreparedStatement statement = connection.prepareStatement("insert into files(filepath) values(?)");
 		statement.setString(1, fileName);
 		statement.execute();
-		// TODO handle result set
 		ResultSet rs = statement.getGeneratedKeys();
 		rs.next();
 		return rs.getInt(1);
@@ -166,7 +166,7 @@ public class CrossNumberFinder3 {
 
 	// Returns at which position the cross number exceeds the limit within line or
 	// -1 if the limit is not reached
-	static int calculateLimitReachedAt(String line) {
+	private static int calculateLimitReachedAt(String line) {
 		int crossNumber = 0;
 		int count = 0;
 		String[] numbers = line.split("");
@@ -181,8 +181,7 @@ public class CrossNumberFinder3 {
 	}
 
 	// gets the file name either from the arguments or from the user input
-	@SuppressWarnings("resource") // System.in must not be closed!
-	static String getFileName() {
+	private static String getFileName() {
 		Scanner scanner = new Scanner(System.in);
 		String fileName = null;
 		System.out.println("Specify the path to the file that should be used:");
@@ -192,13 +191,19 @@ public class CrossNumberFinder3 {
 			fileName = scanner.nextLine();
 		}
 		return fileName;
-
 	}
 
-	public static Connection getDbConnection() throws SQLException {
-		String url = "jdbc:sqlite:crossNumber.db";
-		System.out.println(">>>>" + url);
-		return DriverManager.getConnection(url);
+	// Connects to the database and returns the connection object
+	private static Connection getDbConnection() throws SQLException {
+		Connection connection = DriverManager.getConnection(CONNECTION_STRING);
+		checkDb(connection);
+		return connection;
+	}
+
+	// Checks the db and creates the table if they do not exist
+	private static void checkDb(Connection connection) throws SQLException {
+		connection.createStatement().execute("create table if not exists files(id integer primary key autoincrement, file_path varchar(255))");
+		connection.createStatement().execute("create table if not exists lines(id integer primary key autoincrement, file_id integer, line_number integer, count_of_matches integer, foreign key(file_id) references files(id))");
 	}
 
 }
