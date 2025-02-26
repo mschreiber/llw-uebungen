@@ -5,4 +5,5 @@
 <ul>
 <li>Übungsbeispiel 1: number-finder</li>
 <li>Übungsbeispiel 2: cross-number-finder</li>
+<li>Übungsbeispiel 3: even-odd-finder</li>
 </ul>
