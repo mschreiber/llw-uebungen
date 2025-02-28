@@ -69,3 +69,17 @@ Wie lautet das SQL Statement um an alle Vor- und Nachnamen, sowie Telefonnummer 
 ### 2.7 Update E-Mail Adresse
 Ihr Kunde bekommt von dem Käufer Bob Builder einen Anruf. Er bitte ihren Kunden seine E-Mail Adresse auf bob@builder.com zu ändern.
 Wie lautet das SQL Statement um die E-Mail Adresse für den Käufer mit dem Vornamen "Bob" und dem Nachnamen "Builder" auf "bob@builder.com" zu ändern?
+
+
+### 2.8 Lagerstand
+Ihr Kunde möchte wissen, wieviele Bücher durchschnittlich und maximal pro Lager vorhanden sind. Da der Kunde die Daten in ein bestehendes Excel kopieren will, ist es wichtig, 
+dass die Spalten mit "Lager", "MaxAnzahl" und "Durchschnitt" beschriftet sind.
+Wie lautet das SQL Statement um die durchschnittliche Anzahl sowie die maximale Anzahl an Bücher pro Lager (Name, MaxCount, AvgCount) ausgegeben werden?
+
+
+### 2.9 Bestseller
+Ihr Kunde möchte auf seiner Webseite die Bestseller auflisten. Für ihn gilt als Grenze, dass das Buch mindestens 3 mal verkauft werden musste.
+Aufgelistest werden sollen, Buchtitel, Preis und wie oft es verkauft worden ist. Wichtig ist dem Kunden auch, dass es die Bücher mit den meinsten Verkäufszahlen ganz oben erscheinen.
+Wie lautet das SQL Statement um die Bücher aufzulisten, die mehr als 3 mal verkaut worden sind (Titel, Preis, Anzahl Verkäufe)?
+
+select b.title, sum(bo.amount) as sellCount from books b left join book_orders bo on b.book_id = bo.book_id group by b.book_id having sellCount >= 3 order by sellCount desc;
