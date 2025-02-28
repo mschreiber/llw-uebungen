@@ -13,7 +13,7 @@ Der Kunde möchte auf seiner Internetseite einen Teaser anbringen, in dem steht 
 
 Wie lautet das SQL Statement um herauszufinden welche Bücher weniger als 14,-- Euro kosten (alle Spalten sollen ausgegeben werden)?
 
-`select * from books where price < 14.00;``
+`select * from books where price < 14.00;`
 
 
 ### 2.2 Anzahl Bücher in bestimmtem Lager
@@ -48,7 +48,7 @@ Wie lautet das SQL Statement um alle E-Mail Adressen der Käufer zu bekommen (nu
 
 Beachte, dass pro Käufer die E-Mail Adresse nur einmal ausgegeben werden soll, damit ein Käufert ggf. nicht 2 E-Mails bekommt.
 
-`select distinct c.email from customers c join orders o on c.customer_id = o.customer_id join book_orders bo on o.order_id = bo.order_id join books b on bo.book_id = b.book_id where b.title = 'Wuthering Heights'
+`select distinct c.email from customers c join orders o on c.customer_id = o.customer_id join book_orders bo on o.order_id = bo.order_id join books b on bo.book_id = b.book_id where b.title = 'Wuthering Heights';`
 
 ### 2.6 Gewinnspiel für bestimmte Namen
 
@@ -56,7 +56,7 @@ Ihr Kunde hat ein Gewinnspiel gemacht. Alle Kunden, bei denen der Vor- oder Nach
 
 Wie lautet das SQL Statement um an alle Vor- und Nachnamen, sowie Telefonnummer der Käufer raus zu suchen, bei denen der Vor- oder Nachnamen mit "Jo" beginnt.
 
-`select first_name, last_name, phone from customers where first_name like 'Jo%' or last_name like 'Jo%'
+`select first_name, last_name, phone from customers where first_name like 'Jo%' or last_name like 'Jo%';`
 
 ### 2.7 Update E-Mail Adresse
 
