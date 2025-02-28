@@ -50,7 +50,8 @@ INSERT INTO books (isbn, title, price, autor_id, publisher_id) VALUES
 ('978-0-307-27778-6', 'The Great Gatsby', 14.50, 4, 2),
 ('978-0-670-03255-7', 'To Kill a Mockingbird', 16.99, 3, 3),
 ('978-0-679-74532-7', 'Brave New World', 13.99, 2, 4),
-('978-0-141-18790-4', 'Wuthering Heights', 12.50, 1, 5);
+('978-0-141-18790-4', 'Wuthering Heights', 12.50, 1, 5),
+('978-0-141-18790-7', 'Wuthering Heights II', 14.50, 1, 5);
 
 -- Beispiel-Daten für die Tabelle warehouses
 INSERT INTO warehouses (name) VALUES
