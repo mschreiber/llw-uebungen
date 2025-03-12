@@ -25,7 +25,7 @@ create table orders(
   order_id integer primary key autoincrement, 
   customer_id integer not null references customers(customer_id), 
   state_id integer not null references states(state_id),
-  price real not null
+  order_date datetime not null
 );
 
 create table publishers(
